@@ -7,3 +7,7 @@ export const appColors = {
   RED: "#fc3839",
   TEXT_GRAY: "#676767",
 };
+
+export const app = {
+  PUBLIC_URL: process.env.PUBLIC_URL,
+};
