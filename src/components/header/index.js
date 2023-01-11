@@ -13,7 +13,7 @@ function Header() {
           <span>Fruits&vegetables</span>
           <div>
             <ul className={classes.menu}>
-              <li>Home</li>
+              <li onClick={() => navigate("/")}>Home</li>
               <li>About</li>
               <li>Cart</li>
               <li onClick={() => navigate("/login")}>Login/Register</li>
