@@ -1,5 +1,6 @@
 import React, { lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LoginRegister from "./views/login-register/";
 const FullLayout = lazy(() => import("./layouts/FullLayout.js"));
 const Starter = lazy(() => import("./views/Starter.js"));
 const About = lazy(() => import("./views/About.js"));
@@ -14,6 +15,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/login" element={<LoginRegister />} />
         <Route
           exact
           path="/dashboard"

@@ -5,6 +5,7 @@ export const appColors = {
   GRAY: "#f3f3f3",
   TEXT_WHITE: "#a1a1a3",
   RED: "#fc3839",
+  WHITE: "#fff",
   TEXT_GRAY: "#676767",
 };
 

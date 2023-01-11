@@ -1,9 +1,11 @@
 import { makeStyles } from "@mui/styles";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { app, appColors } from "../../constants";
 
 function Header() {
   const classes = useStyles();
+  const navigate = useNavigate();
   return (
     <div className={classes.mainContainer}>
       <div className="container">
@@ -14,7 +16,7 @@ function Header() {
               <li>Home</li>
               <li>About</li>
               <li>Cart</li>
-              <li>Login/Register</li>
+              <li onClick={() => navigate("/login")}>Login/Register</li>
               <li>
                 <i className="bi bi-search" />
               </li>

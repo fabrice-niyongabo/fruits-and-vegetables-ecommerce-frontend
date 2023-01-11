@@ -1,6 +1,6 @@
 import { makeStyles } from "@mui/styles";
 import React from "react";
-import { app } from "../../../constants";
+import { app, appColors } from "../../../constants";
 
 function Welcome() {
   const classes = useStyles();
@@ -14,7 +14,7 @@ function Welcome() {
       <div className={classes.aboutMaincontainer}>
         <div className={`${classes.aboutContainer} shadow`}>
           <h2 className="text-center">About</h2>
-          <p>
+          <p style={{ color: appColors.TEXT_GRAY }}>
             <small>
               This is a short description, This is a short description, This is
               a short description, This is a short description, This is a short
