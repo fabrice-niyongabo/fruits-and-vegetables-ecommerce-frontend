@@ -31,6 +31,8 @@ const initialRegisterError = {
   confirmPassword: "",
   phone: "",
 };
+
+const initialLogin = { password: "", email: "" };
 function LoginRegister() {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -38,6 +40,8 @@ function LoginRegister() {
   const [registerState, setRegisterState] = useState(initialRegister);
   const [registerErrors, setRegisterErrors] = useState(initialRegisterError);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting2, setIsSubmitting2] = useState(false);
+  const [loginState, setLoginState] = useState(initialLogin);
 
   const fullNameRef = useRef(null);
   const phoneRef = useRef(null);
@@ -161,7 +165,37 @@ function LoginRegister() {
       .catch((error) => {
         setTimeout(() => {
           setIsSubmitting(false);
-          errorHandler(errorHandler);
+          errorHandler(error);
+        }, 1000);
+      });
+    //
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setIsSubmitting2(true);
+    //
+    axios
+      .post(app.BACKEND_URL + "/users/login/", { ...loginState })
+      .then((res) => {
+        dispatch(setUserFullName(res.data.fullName));
+        dispatch(setUserPhone(res.data.phone));
+        dispatch(setUserEmail(res.data.email));
+        dispatch(setUserRole(res.data.role));
+        dispatch(setUserToken(res.data.token));
+        setTimeout(() => {
+          if (res.data.role === "admin") {
+            navigate("/dashboard");
+          } else {
+            navigate("/");
+          }
+        }, 1000);
+      })
+      .catch((error) => {
+        setTimeout(() => {
+          setIsSubmitting2(false);
+
+          errorHandler(error);
         }, 1000);
       });
     //
@@ -178,7 +212,7 @@ function LoginRegister() {
               <small style={{ color: appColors.TEXT_GRAY }}>
                 Welcome to your account
               </small>
-              <form>
+              <form onSubmit={handleLogin} autoComplete={false}>
                 <div className="form-group mb-3">
                   <label>Email address</label>
                   <input
@@ -186,20 +220,38 @@ function LoginRegister() {
                     name="email"
                     className="form-control"
                     placeholder="Enter your email"
+                    autoComplete={false}
                     required
+                    value={loginState.email}
+                    onChange={(e) =>
+                      setLoginState({ ...loginState, email: e.target.value })
+                    }
+                    disabled={isSubmitting2}
                   />
                 </div>
                 <div className="form-group mb-3">
                   <label>Password</label>
                   <input
-                    type="email"
-                    name="email"
+                    type="password"
                     className="form-control"
                     placeholder="**********************"
                     required
+                    autoComplete={false}
+                    value={loginState.password}
+                    onChange={(e) =>
+                      setLoginState({ ...loginState, password: e.target.value })
+                    }
+                    disabled={isSubmitting2}
                   />
                 </div>
-                <button className={classes.btn}>Login</button>
+                <button
+                  type="submit"
+                  className={classes.btn}
+                  disabled={isSubmitting2}
+                  style={{ opacity: isSubmitting2 ? 0.5 : 1 }}
+                >
+                  {isSubmitting2 && <Spinner size="sm" color="primary" />} Login
+                </button>
               </form>
             </Col>
             <Col md={6} className={classes.registeContainer}>
@@ -308,7 +360,10 @@ function LoginRegister() {
                     disabled={isSubmitting}
                     type="submit"
                     className={classes.btn}
-                    style={{ background: appColors.RED }}
+                    style={{
+                      background: appColors.RED,
+                      opacity: isSubmitting ? 0.5 : 1,
+                    }}
                   >
                     {isSubmitting && <Spinner size="sm" color="primary" />}{" "}
                     Register

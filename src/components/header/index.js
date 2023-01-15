@@ -1,11 +1,14 @@
 import { makeStyles } from "@mui/styles";
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { app, appColors } from "../../constants";
 
 function Header() {
   const classes = useStyles();
   const navigate = useNavigate();
+  const { token, fullName, role } = useSelector((state) => state.user);
+  const { cart } = useSelector((state) => state.cart);
   return (
     <div className={classes.mainContainer}>
       <div className="container">
@@ -15,8 +18,25 @@ function Header() {
             <ul className={classes.menu}>
               <li onClick={() => navigate("/")}>Home</li>
               <li onClick={() => navigate("/contact-us")}>Conctact Us</li>
-              <li onClick={() => navigate("/cart")}>Cart</li>
-              <li onClick={() => navigate("/login")}>Login/Register</li>
+              <li onClick={() => navigate("/cart")}>Cart({cart.length})</li>
+              {token.trim() === "" ? (
+                <li onClick={() => navigate("/login")}>Login/Register</li>
+              ) : (
+                <>
+                  {role === "user" ? (
+                    <>
+                      <li onClick={() => navigate("/profile")}>
+                        {fullName.split(" ")[0]}
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li onClick={() => navigate("/dashboard")}>Dashboard</li>
+                    </>
+                  )}
+                  <li onClick={() => navigate("/logout")}>Logout</li>
+                </>
+              )}
               <li>
                 <i className="bi bi-search" />
               </li>

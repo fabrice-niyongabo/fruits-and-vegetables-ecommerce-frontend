@@ -1,15 +1,20 @@
 import { makeStyles } from "@mui/styles";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { app, appColors } from "../../../constants";
 
 function LatestProducts() {
   const classes = useStyles();
+  const navigate = useNavigate();
   return (
     <section className={classes.mainContainer}>
       <div className="container">
         <div className={classes.flexSpace}>
           <h3 className={classes.title}>Latest Products</h3>
-          <button className={classes.btn}>
+          <button
+            className={classes.btn}
+            onClick={() => navigate("/categories/all")}
+          >
             View All <i className="bi bi-arrow-right" />
           </button>
         </div>

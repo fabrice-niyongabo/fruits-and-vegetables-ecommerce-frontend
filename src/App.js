@@ -10,9 +10,10 @@ const Cart = lazy(() => import("./views/cart"));
 const LoginRegister = lazy(() => import("./views/login-register/"));
 const Logout = lazy(() => import("./views/logout"));
 const ContactUs = lazy(() => import("./views/contact-us/"));
+const Profile = lazy(() => import("./views/profile"));
 const ProductCategories = lazy(() => import("./views/product-categories"));
 const UnProtectedRoute = lazy(() => import("./controllers/un-protected-route"));
-// const ProtectedRoute = lazy(() => import("./controllers/protected-route"));
+const ProtectedRoute = lazy(() => import("./controllers/protected-route"));
 const AdminProtectedRoute = lazy(() =>
   import("./controllers/admin-protected-route")
 );
@@ -42,6 +43,15 @@ const App = () => {
             element={<ProductCategories />}
           />
           <Route exact path="/contact-us" element={<ContactUs />} />
+          <Route
+            exact
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
           <Route
             exact
             path="/dashboard"

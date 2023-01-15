@@ -2,7 +2,7 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Header from "../../components/header";
 import TopBanner from "../../components/top-banner";
-import { appColors } from "../../constants";
+import { app, appColors } from "../../constants";
 import Products from "./products";
 
 function ProductCategories() {
@@ -13,7 +13,13 @@ function ProductCategories() {
       <Container className="mt-5">
         <Row>
           <Col md={4}>
-            <div className="p-3" style={{ background: "#CCC" }}>
+            <div
+              className="p-3 shadow"
+              style={{
+                backgroundImage: `url("${app.PUBLIC_URL}/assets/images/bg.png")`,
+                background: appColors.GRAY,
+              }}
+            >
               <div>
                 <h3 style={{ fontSize: 18 }}>CATEGORIES</h3>
                 <div class="form-check form-check-block">

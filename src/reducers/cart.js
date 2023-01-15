@@ -1,16 +1,8 @@
-import {
-  SET_LOADING_CART,
-  SET_CART,
-  RESET_CART,
-  SET_CART_FACILITY_MANAGER_ID,
-  SET_CART_FACILITY_NAME,
-} from "../actions/cart";
+import { SET_LOADING_CART, SET_CART, RESET_CART } from "../actions/cart";
 
 const initialState = {
   loading: true,
   cart: [],
-  facilityName: "",
-  managerId: "",
 };
 
 const cart = (state = initialState, action) => {
@@ -27,24 +19,8 @@ const cart = (state = initialState, action) => {
         loading: action.payload,
       };
 
-    case SET_CART_FACILITY_MANAGER_ID:
-      return {
-        ...state,
-        managerId: action.payload,
-      };
-    case SET_CART_FACILITY_NAME:
-      return {
-        ...state,
-        facilityName: action.payload,
-      };
-
     case RESET_CART:
-      return {
-        loading: true,
-        cart: [],
-        facilityName: "",
-        managerId: "",
-      };
+      return initialState;
 
     default:
       return state;
