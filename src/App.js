@@ -9,6 +9,7 @@ const Buttons = lazy(() => import("./views/ui/Buttons"));
 const Cart = lazy(() => import("./views/cart"));
 const LoginRegister = lazy(() => import("./views/login-register/"));
 const ContactUs = lazy(() => import("./views/contact-us/"));
+const ProductCategories = lazy(() => import("./views/product-categories"));
 
 const Home = lazy(() => import("./views/home"));
 
@@ -19,6 +20,11 @@ const App = () => {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/login" element={<LoginRegister />} />
         <Route exact path="/cart" element={<Cart />} />
+        <Route
+          exact
+          path="/categories/:category"
+          element={<ProductCategories />}
+        />
         <Route exact path="/contact-us" element={<ContactUs />} />
         <Route
           exact
