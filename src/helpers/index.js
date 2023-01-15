@@ -11,7 +11,7 @@ export const useLoadBasicData = () => {
 };
 
 export const handleAuthError = (error) => {
-  if (error?.response?.status == 401) {
+  if (error?.response?.status === 401) {
     window.location = "/logout";
   }
 };
@@ -30,7 +30,7 @@ export const uploadImage = (file) => {
     Axios.post(process.env.REACT_APP_BACKEND_FILE_UPLOAD_URL, formData)
       .then((res) => {
         console.log(res.data);
-        if (res.data.type == "success") {
+        if (res.data.type === "success") {
           resolve({ data: { fileName: res.data.fileName } });
         } else {
           reject(res.data.msg);
@@ -43,13 +43,13 @@ export const uploadImage = (file) => {
 };
 
 export const toastMessage = (type, message) => {
-  if (type == "info") {
+  if (type === "info") {
     toast.info(message);
   }
-  if (type == "error") {
+  if (type === "error") {
     toast.error(message);
   }
-  if (type == "success") {
+  if (type === "success") {
     toast.success(message);
   }
 };

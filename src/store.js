@@ -5,7 +5,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
-  key: "girinka-mun-key-3211",
+  key: "fruits-and-vegetables-market3213",
   storage,
 };
 
