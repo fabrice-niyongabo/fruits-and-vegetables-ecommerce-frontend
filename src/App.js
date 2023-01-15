@@ -2,7 +2,7 @@ import React, { lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 const FullLayout = lazy(() => import("./layouts/FullLayout.js"));
-const Starter = lazy(() => import("./views/Starter.js"));
+const Dashboard = lazy(() => import("./views/dashboard"));
 const Alerts = lazy(() => import("./views/ui/Alerts"));
 const Badges = lazy(() => import("./views/ui/Badges"));
 const Buttons = lazy(() => import("./views/ui/Buttons"));
@@ -64,8 +64,7 @@ const App = () => {
             }
             children={
               <>
-                <Route path="/dashboard/" element={<Starter />} />
-                <Route path="/dashboard/starter" exact element={<Starter />} />
+                <Route path="/dashboard/" element={<Dashboard />} />
                 <Route path="/dashboard/alerts" exact element={<Alerts />} />
                 <Route path="/dashboard/badges" exact element={<Badges />} />
                 <Route path="/dashboard/buttons" exact element={<Buttons />} />

@@ -1,27 +1,44 @@
 import { Button, Nav, NavItem } from "reactstrap";
 import Logo from "./Logo";
 import { Link, useLocation } from "react-router-dom";
+import { appColors } from "../constants";
 
 const navigation = [
   {
     title: "Dashboard",
-    href: "/dashboard/starter",
+    href: "/dashboard",
     icon: "bi bi-speedometer2",
   },
   {
-    title: "Alert",
+    title: "Products List",
     href: "/dashboard/alerts",
-    icon: "bi bi-bell",
+    icon: "bi bi-window-stack",
   },
   {
-    title: "Badges",
-    href: "/dashboard/badges",
-    icon: "bi bi-patch-check",
+    title: "Add NewProduct",
+    href: "/dashboard/alerts",
+    icon: "bi bi-file-earmark-plus-fill",
   },
   {
-    title: "Buttons",
-    href: "/dashboard/buttons",
-    icon: "bi bi-hdd-stack",
+    title: "Product Categories",
+    href: "/dashboard/alerts",
+    icon: "bi bi-card-list",
+  },
+  {
+    title: "Sales",
+    href: "/dashboard/alerts",
+    icon: "bi bi-bar-chart-fill",
+  },
+
+  {
+    title: "Clients",
+    href: "/dashboard/alerts",
+    icon: "bi bi-people-fill",
+  },
+  {
+    title: "Logout",
+    href: "/logout",
+    icon: "bi bi-box-arrow-left",
   },
 ];
 
@@ -34,7 +51,10 @@ const Sidebar = () => {
   return (
     <div className="p-3">
       <div className="d-flex align-items-center">
-        <Logo />
+        <span className="h1 m-0 p-0">
+          O<span style={{ color: appColors.RED }}>F</span>&
+          <span style={{ color: appColors.GREEN }}>V</span>M
+        </span>
         <Button
           close
           size="sm"
