@@ -11,4 +11,5 @@ export const appColors = {
 
 export const app = {
   PUBLIC_URL: process.env.PUBLIC_URL,
+  BACKEND_URL: process.env.REACT_APP_BACKEND_URL,
 };
