@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { resetUser } from "../../actions/user";
 
-function Logout() {
+const Logout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -11,6 +11,6 @@ function Logout() {
     navigate("/login");
   }, []);
   return null;
-}
+};
 
 export default Logout;
