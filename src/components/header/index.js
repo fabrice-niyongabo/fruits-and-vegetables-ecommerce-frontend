@@ -14,8 +14,8 @@ function Header() {
           <div>
             <ul className={classes.menu}>
               <li onClick={() => navigate("/")}>Home</li>
-              <li>About</li>
-              <li>Cart</li>
+              <li>Conctact Us</li>
+              <li onClick={() => navigate("/cart")}>Cart</li>
               <li onClick={() => navigate("/login")}>Login/Register</li>
               <li>
                 <i className="bi bi-search" />
