@@ -97,9 +97,9 @@ export default Checkout;
 const useStyles = makeStyles((theme) => ({
   container: {
     borderRight: "1px solid #CCC",
-    [theme.breakpoints.down("sm")]: {
-      border: "none",
-    },
+    // [theme.breakpoints.down("sm")]: {
+    //   border: "none",
+    // },
   },
   orderRow: {
     display: "flex",

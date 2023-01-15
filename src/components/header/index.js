@@ -10,11 +10,11 @@ function Header() {
     <div className={classes.mainContainer}>
       <div className="container">
         <div className={classes.flexSpace}>
-          <span>Fruits&vegetables</span>
+          <span onClick={() => navigate("/")}>Fruits&vegetables</span>
           <div>
             <ul className={classes.menu}>
               <li onClick={() => navigate("/")}>Home</li>
-              <li>Conctact Us</li>
+              <li onClick={() => navigate("/contact-us")}>Conctact Us</li>
               <li onClick={() => navigate("/cart")}>Cart</li>
               <li onClick={() => navigate("/login")}>Login/Register</li>
               <li>

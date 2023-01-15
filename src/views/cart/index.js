@@ -15,18 +15,20 @@ function Cart() {
       <Header />
       <TopBanner title="Cart" />
       <Container className={classess.mainContainer}>
-        <table className="table table-bordered">
-          <thead className={classess.thead}>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th className="text-center">Total</th>
-            <th className="text-center">Delete</th>
-          </thead>
-          <tbody className={classess.tbody}>
-            <CartItem />
-          </tbody>
-        </table>
+        <div className="table-responsive">
+          <table className="table table-bordered">
+            <thead className={classess.thead}>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th className="text-center">Total</th>
+              <th className="text-center">Delete</th>
+            </thead>
+            <tbody className={classess.tbody}>
+              <CartItem />
+            </tbody>
+          </table>
+        </div>
         <div
           className={`${classess.subTotalContainer} ${classess.flexSpaceBetween}`}
         >
