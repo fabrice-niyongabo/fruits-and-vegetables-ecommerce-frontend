@@ -1,5 +1,4 @@
 import { Button, Nav, NavItem } from "reactstrap";
-import Logo from "./Logo";
 import { Link, useLocation } from "react-router-dom";
 import { appColors } from "../constants";
 
