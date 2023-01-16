@@ -20,6 +20,7 @@ const ProductCats = lazy(() => import("./views/prod-categories"));
 const AddProduct = lazy(() => import("./views/add-product"));
 const Products = lazy(() => import("./views/products"));
 const Users = lazy(() => import("./views/users"));
+const DeliveryFees = lazy(() => import("./views/delivery-fees"));
 
 const Home = lazy(() => import("./views/home"));
 
@@ -90,6 +91,11 @@ const App = () => {
                   element={<Products />}
                 />
                 <Route path="/dashboard/users" exact element={<Users />} />
+                <Route
+                  path="/dashboard/deliveryfees"
+                  exact
+                  element={<DeliveryFees />}
+                />
               </>
             }
           />

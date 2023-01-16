@@ -40,7 +40,7 @@ const navigation = [
   },
   {
     title: "Delivery Prices",
-    href: "/dashboard/alerts",
+    href: "/dashboard/deliveryfees",
     icon: "bi bi-currency-dollar",
   },
   {
