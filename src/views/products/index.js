@@ -8,11 +8,8 @@ import { errorHandler, toastMessage, uploadImage } from "../../helpers";
 import MiniLoader from "../../layouts/loader/MiniLoader";
 import Edit from "./edit";
 
-const Alerts = () => {
+const Products = () => {
   const { token } = useSelector((state) => state.user);
-  const [image, setImage] = useState("");
-  const [name, setName] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState([]);
 
@@ -20,44 +17,6 @@ const Alerts = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
   const [isDeleting, setIsDeleting] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    uploadImage(image)
-      .then((res) => {
-        const { fileName } = res.data;
-        axios
-          .post(app.BACKEND_URL + "/categories/", {
-            name,
-            image: fileName,
-            token,
-          })
-          .then((response) => {
-            setTimeout(() => {
-              setName("");
-              setImage("");
-              setIsSubmitting(false);
-              toastMessage("success", "Category has been added successful");
-              fetchCategories();
-            }, 1000);
-          })
-          .catch((error) => {
-            setTimeout(() => {
-              setIsSubmitting(false);
-              errorHandler(error);
-            }, 1000);
-          });
-      })
-      .catch((error) => {
-        setIsSubmitting(false);
-        if (error.msg) {
-          toastMessage("error", error.msg);
-        } else {
-          toastMessage("error", error.message);
-        }
-      });
-  };
 
   const fetchCategories = () => {
     setIsLoading(true);
@@ -112,10 +71,10 @@ const Alerts = () => {
   return (
     <div>
       <Row>
-        <Col md={8}>
+        <Col md={12}>
           <Card>
             <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-              Product Categories List
+              Product List
             </CardTitle>
             <CardBody className="">
               {isLoading ? (
@@ -178,43 +137,6 @@ const Alerts = () => {
             </CardBody>
           </Card>
         </Col>
-        <Col md={4}>
-          <Card>
-            <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-              Add New Category
-            </CardTitle>
-            <CardBody className="">
-              <form onSubmit={handleSubmit}>
-                <div className="form-group my-2">
-                  <input
-                    type="text"
-                    placeholder="Category Name"
-                    className="form-control"
-                    required
-                    value={name}
-                    disabled={isSubmitting}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
-                <div className="form-group my-2">
-                  <span>Choose Image</span>
-                  <input
-                    type="file"
-                    className="form-control"
-                    required
-                    disabled={isSubmitting}
-                    onChange={(t) => setImage(t.target.files[0])}
-                  />
-                </div>
-                <div>
-                  <button className="btn btn-primary">
-                    {isSubmitting && <Spinner size="sm" color="white" />} Submit
-                  </button>
-                </div>
-              </form>
-            </CardBody>
-          </Card>
-        </Col>
       </Row>
       <Confirmation
         showAlert={showAlert}
@@ -232,4 +154,4 @@ const Alerts = () => {
   );
 };
 
-export default Alerts;
+export default Products;

@@ -17,6 +17,7 @@ const AdminProtectedRoute = lazy(() =>
   import("./controllers/admin-protected-route")
 );
 const ProductCats = lazy(() => import("./views/prod-categories"));
+const AddProduct = lazy(() => import("./views/add-product"));
 
 const Home = lazy(() => import("./views/home"));
 
@@ -75,6 +76,11 @@ const App = () => {
                   path="/dashboard/productscategories"
                   exact
                   element={<ProductCats />}
+                />
+                <Route
+                  path="/dashboard/addproduct"
+                  exact
+                  element={<AddProduct />}
                 />
               </>
             }

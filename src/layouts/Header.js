@@ -1,20 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Navbar,
   Collapse,
   Nav,
   NavItem,
   NavbarBrand,
-  UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
   Dropdown,
   Button,
 } from "reactstrap";
-import user1 from "../assets/images/users/user1.jpg";
 import { appColors } from "../constants";
 
 const Header = () => {
@@ -74,12 +72,7 @@ const Header = () => {
           <DropdownToggle color="primary">
             <span>{fullName.split(" ")[0]}</span>
             &nbsp; &nbsp;
-            <img
-              src={user1}
-              alt="profile"
-              className="rounded-circle"
-              width="30"
-            ></img>
+            <i className="bi bi-person-circle" style={{ fontSize: 25 }} />
           </DropdownToggle>
           <DropdownMenu>
             <DropdownItem header style={{ textTransform: "uppercase" }}>

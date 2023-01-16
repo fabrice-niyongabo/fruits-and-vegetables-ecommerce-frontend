@@ -15,7 +15,7 @@ const navigation = [
   },
   {
     title: "Add NewProduct",
-    href: "/dashboard/alerts",
+    href: "/dashboard/addproduct",
     icon: "bi bi-file-earmark-plus-fill",
   },
   {
