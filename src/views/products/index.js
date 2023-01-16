@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Card, CardBody, CardTitle, Col, Row, Spinner } from "reactstrap";
 import { app } from "../../constants";
 import Confirmation from "../../controllers/confirmation";
-import { errorHandler, toastMessage, uploadImage } from "../../helpers";
+import { errorHandler } from "../../helpers";
 import MiniLoader from "../../layouts/loader/MiniLoader";
 import Edit from "./edit";
 

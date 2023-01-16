@@ -2,8 +2,7 @@ import { makeStyles } from "@mui/styles";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { app, appColors } from "../../../constants";
-import { currencyFormatter } from "../../../helpers";
+import { appColors } from "../../../constants";
 import ProductItem from "./productItem";
 
 function LatestProducts() {
