@@ -20,7 +20,7 @@ const navigation = [
   },
   {
     title: "Product Categories",
-    href: "/dashboard/alerts",
+    href: "/dashboard/productscategories",
     icon: "bi bi-card-list",
   },
   {

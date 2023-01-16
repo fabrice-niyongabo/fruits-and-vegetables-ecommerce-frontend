@@ -5,8 +5,6 @@ const FullLayout = lazy(() => import("./layouts/FullLayout.js"));
 const Dashboard = lazy(() => import("./views/dashboard"));
 const AdminProfile = lazy(() => import("./views/admin-profile"));
 const Alerts = lazy(() => import("./views/ui/Alerts"));
-const Badges = lazy(() => import("./views/ui/Badges"));
-const Buttons = lazy(() => import("./views/ui/Buttons"));
 const Cart = lazy(() => import("./views/cart"));
 const LoginRegister = lazy(() => import("./views/login-register/"));
 const Logout = lazy(() => import("./views/logout"));
@@ -18,6 +16,7 @@ const ProtectedRoute = lazy(() => import("./controllers/protected-route"));
 const AdminProtectedRoute = lazy(() =>
   import("./controllers/admin-protected-route")
 );
+const ProductCats = lazy(() => import("./views/prod-categories"));
 
 const Home = lazy(() => import("./views/home"));
 
@@ -72,7 +71,11 @@ const App = () => {
                   exact
                   element={<AdminProfile />}
                 />
-                <Route path="/dashboard/buttons" exact element={<Buttons />} />
+                <Route
+                  path="/dashboard/productscategories"
+                  exact
+                  element={<ProductCats />}
+                />
               </>
             }
           />

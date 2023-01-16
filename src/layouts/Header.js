@@ -85,7 +85,9 @@ const Header = () => {
             <DropdownItem header style={{ textTransform: "uppercase" }}>
               {fullName}
             </DropdownItem>
-            <DropdownItem>Profile</DropdownItem>
+            <DropdownItem onClick={() => navigate("/dashboard/profile")}>
+              Profile
+            </DropdownItem>
             <DropdownItem onClick={() => navigate("/logout")}>
               Logout
             </DropdownItem>
