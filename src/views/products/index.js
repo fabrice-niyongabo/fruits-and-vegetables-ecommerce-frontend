@@ -70,7 +70,24 @@ const Products = () => {
         <Col md={12}>
           <Card>
             <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-              Product List
+              <div className="d-flex justify-content-between align-items-center">
+                <div>
+                  <strong> Product List</strong>
+                </div>
+                <div className="d-flex justify-content-between">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Search"
+                    // value={keyWord}
+                    // onChange={(e) => setKeyword(e.target.value)}
+                  />
+                  <div>&nbsp; &nbsp;</div>
+                  <button className="btn btn-primary">
+                    <i className="bi bi-printer" />
+                  </button>
+                </div>
+              </div>
             </CardTitle>
             <CardBody className="">
               {isLoading ? (

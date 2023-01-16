@@ -28,11 +28,20 @@ const navigation = [
     href: "/dashboard/alerts",
     icon: "bi bi-bar-chart-fill",
   },
-
   {
     title: "Clients",
-    href: "/dashboard/alerts",
+    href: "/dashboard/users",
     icon: "bi bi-people-fill",
+  },
+  {
+    title: "Contact Us Form",
+    href: "/dashboard/alerts",
+    icon: "bi bi-inboxes",
+  },
+  {
+    title: "Delivery Prices",
+    href: "/dashboard/alerts",
+    icon: "bi bi-currency-dollar",
   },
   {
     title: "Logout",
