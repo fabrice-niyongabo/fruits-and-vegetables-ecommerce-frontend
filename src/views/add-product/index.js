@@ -114,7 +114,7 @@ const AddProduct = () => {
                         disabled={isSubmitting}
                         onChange={(e) => setCategoryId(e.target.value)}
                       >
-                        <option value="" selected disabled>
+                        <option value="" disabled>
                           Choose Product Category
                         </option>
                         {categories.map((item, index) => (

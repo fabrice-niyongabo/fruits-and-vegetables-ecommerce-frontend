@@ -11,20 +11,20 @@ import Edit from "./edit";
 const Products = () => {
   const { token } = useSelector((state) => state.user);
   const [isLoading, setIsLoading] = useState(false);
-  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
 
   const [showEdit, setShowEdit] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const fetchCategories = () => {
+  const fetchProducts = () => {
     setIsLoading(true);
     axios
-      .get(app.BACKEND_URL + "/categories/")
+      .get(app.BACKEND_URL + "/products/")
       .then((res) => {
         setTimeout(() => {
-          setCategories(res.data.categories);
+          setProducts(res.data.products);
           setIsLoading(false);
         }, 1000);
       })
@@ -41,17 +41,13 @@ const Products = () => {
       setIsDeleting(true);
       axios
         .delete(
-          app.BACKEND_URL +
-            "/categories/" +
-            selectedItem._id +
-            "?token=" +
-            token
+          app.BACKEND_URL + "/products/" + selectedItem._id + "?token=" + token
         )
         .then((res) => {
           setTimeout(() => {
             setIsDeleting(false);
-            setCategories(
-              categories.filter((item) => item._id !== selectedItem._id)
+            setProducts(
+              products.filter((item) => item._id !== selectedItem._id)
             );
             setSelectedItem({});
           }, 1000);
@@ -66,7 +62,7 @@ const Products = () => {
   };
 
   useEffect(() => {
-    fetchCategories();
+    fetchProducts();
   }, []);
   return (
     <div>
@@ -85,11 +81,14 @@ const Products = () => {
                     <thead>
                       <th>#</th>
                       <th>Image</th>
-                      <th>Category Name</th>
+                      <th>Category</th>
+                      <th>Name</th>
+                      <th>Price</th>
+                      <th>Description</th>
                       <th className="text-center">Action</th>
                     </thead>
                     <tbody style={{ borderTopWidth: 0 }}>
-                      {categories.map((item, index) => (
+                      {products.map((item, index) => (
                         <tr key={index}>
                           <td>{index + 1}</td>
                           <td>
@@ -102,7 +101,9 @@ const Products = () => {
                               }}
                             />
                           </td>
-                          <td>{item.name}</td>
+                          <td>{item?.categoryDetails.name}</td>
+                          <td>{item.name}</td> <td>{item.price}</td>
+                          <td>{item.description}</td>
                           <td className="text-center">
                             <button
                               className="btn btn-primary"
@@ -148,7 +149,7 @@ const Products = () => {
         selectedItem={selectedItem}
         showModal={showEdit}
         setShowModal={setShowEdit}
-        fetchData={fetchCategories}
+        fetchData={fetchProducts}
       />
     </div>
   );
