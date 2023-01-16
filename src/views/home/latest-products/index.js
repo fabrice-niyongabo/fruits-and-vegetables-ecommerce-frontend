@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { app, appColors } from "../../../constants";
 import { currencyFormatter } from "../../../helpers";
+import ProductItem from "./productItem";
 
 function LatestProducts() {
   const { products, isLoading } = useSelector((state) => state.products);
@@ -24,24 +25,7 @@ function LatestProducts() {
         <div className="mt-5">
           <div className="row">
             {products.map((item, index) => (
-              <div key={index} className="col-md-2 mb-3">
-                <div style={{ position: "relative" }}>
-                  <div className={classes.imageContainer}>
-                    <img src={`${app.FILE_URL + item.image}`} alt={item.name} />
-                  </div>
-                  <div className={classes.cartBtnContainer}>
-                    <button>
-                      <i className="bi bi-cart" /> <span>Add to cart</span>
-                    </button>
-                  </div>
-                </div>
-                <div className={classes.productPriceContainer}>
-                  <p className={classes.title}>{item.name}</p>
-                  <p className={classes.price}>
-                    {currencyFormatter(item.price)} RWF
-                  </p>
-                </div>
-              </div>
+              <ProductItem item={item} index={index} key={index} />
             ))}
           </div>
         </div>

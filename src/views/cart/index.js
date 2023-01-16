@@ -1,15 +1,45 @@
 import { makeStyles } from "@mui/styles";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Container } from "reactstrap";
+import { fetchCart } from "../../actions/cart";
 import Header from "../../components/header";
 import TopBanner from "../../components/top-banner";
 import { appColors } from "../../constants";
+import { currencyFormatter, toastMessage } from "../../helpers";
 import CartItem from "./cart-item";
 import Checkout from "./checkout";
 
 function Cart() {
+  const { loading, cart } = useSelector((state) => state.cart);
+  const { token } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const classess = useStyles();
   const [showModal, setShowModal] = useState(false);
+  const [quantities, setQuantities] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(fetchCart());
+  }, []);
+
+  const calculateTotal = () => {
+    let total = 0;
+    for (let i = 0; i < cart.length; i++) {
+      if (quantities.length > 0) {
+        const qty = quantities.filter((value) => value.index === i);
+        if (qty.length === 1) {
+          total += cart[i].price * qty[0].value;
+        } else {
+          total += cart[i].price;
+        }
+      } else {
+        total += cart[i].price;
+      }
+    }
+    return total;
+  };
   return (
     <>
       <Header />
@@ -22,10 +52,17 @@ function Cart() {
               <th>Price</th>
               <th>Quantity</th>
               <th className="text-center">Total</th>
-              <th className="text-center">Delete</th>
+              <th className="text-center">Action</th>
             </thead>
             <tbody className={classess.tbody}>
-              <CartItem />
+              {cart.map((item, index) => (
+                <CartItem
+                  item={item}
+                  index={index}
+                  quantities={quantities}
+                  setQuantities={setQuantities}
+                />
+              ))}
             </tbody>
           </table>
         </div>
@@ -33,10 +70,20 @@ function Cart() {
           className={`${classess.subTotalContainer} ${classess.flexSpaceBetween}`}
         >
           <p>Subtotal</p>
-          <p>1,000 RWF</p>
+          <p>{currencyFormatter(calculateTotal())} RWF</p>
         </div>
         <div className="text-end">
-          <button className={classess.btn} onClick={() => setShowModal(true)}>
+          <button
+            className={classess.btn}
+            onClick={() => {
+              if (token.trim() !== "") {
+                setShowModal(true);
+              } else {
+                toastMessage("error", "You must login before checking out");
+                navigate("/login");
+              }
+            }}
+          >
             Checkout
           </button>
         </div>

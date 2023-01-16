@@ -26,44 +26,22 @@ export const setLoadingCart = (value) => (dispatch) => {
   });
 };
 
-export const setFacilityName = (value) => (dispatch) => {
-  dispatch({
-    type: SET_CART_FACILITY_NAME,
-    payload: value,
-  });
-};
-
-export const setFacilityManagerId = (value) => (dispatch) => {
-  dispatch({
-    type: SET_CART_FACILITY_MANAGER_ID,
-    payload: value,
-  });
-};
-
 export const fetchCart = () => (dispatch, getState) => {
   dispatch(setLoadingCart(true));
   let endPoint;
   const { token } = getState().user;
   if (!token || token.trim() === "") {
-    endPoint = process.env.REACT_APP_BACKEND_URL + "/cart/all/";
+    endPoint = process.env.REACT_APP_BACKEND_URL + "/cart/";
   } else {
-    endPoint = process.env.REACT_APP_BACKEND_URL + "/cart/all/?token=" + token;
+    endPoint = process.env.REACT_APP_BACKEND_URL + "/cart/?token=" + token;
   }
   Axios.get(endPoint)
     .then((res) => {
       dispatch(setLoadingCart(false));
       dispatch(setCart(res.data.result));
-      if (res.data.result.length > 0) {
-        dispatch(setFacilityManagerId(res.data.result[0].managerId));
-        dispatch(setFacilityName(res.data.result[0].facilityName));
-      } else {
-        dispatch(setFacilityManagerId(""));
-        dispatch(setFacilityName(""));
-      }
     })
     .catch((error) => {
       dispatch(setLoadingCart(false));
-      console.log(error);
       handleAuthError(error);
     });
 };

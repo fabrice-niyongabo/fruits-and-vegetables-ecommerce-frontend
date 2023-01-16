@@ -3,6 +3,7 @@ import Axios from "axios";
 import { toast } from "react-toastify";
 import { fetchCategories } from "../actions/categories";
 import { fetchProducts } from "../actions/products";
+import { fetchCart } from "../actions/cart";
 
 //custom dispatcher hook
 export const useLoadBasicData = () => {
@@ -10,6 +11,7 @@ export const useLoadBasicData = () => {
   return (payload) => {
     dispatch(fetchCategories());
     dispatch(fetchProducts());
+    dispatch(fetchCart());
   };
 };
 

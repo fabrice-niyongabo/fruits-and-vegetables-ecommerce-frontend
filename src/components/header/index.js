@@ -26,8 +26,7 @@ function Header() {
             <ul className={classes.menu}>
               <li onClick={() => navigate("/")}>Home</li>
               <li onClick={() => navigate("/contact-us")}>Conctact Us</li>
-              {/* <li onClick={() => navigate("/cart")}>Cart({cart.length})</li> */}
-              <li onClick={() => navigate("/cart")}>Cart(1)</li>
+              <li onClick={() => navigate("/cart")}>Cart({cart.length})</li>
               {token.trim() === "" ? (
                 <li onClick={() => navigate("/login")}>Login/Register</li>
               ) : (

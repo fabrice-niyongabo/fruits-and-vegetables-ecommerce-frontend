@@ -1,36 +1,203 @@
 import { makeStyles } from "@mui/styles";
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Spinner } from "reactstrap";
+import { fetchCart } from "../../../actions/cart";
 import { app, appColors } from "../../../constants";
+import Confirmation from "../../../controllers/confirmation";
+import {
+  currencyFormatter,
+  errorHandler,
+  toastMessage,
+} from "../../../helpers";
 
-function CartItem() {
+function CartItem({ item, setQuantities, quantities, index }) {
+  const dispatch = useDispatch();
   const classess = useStyles();
+  const { token } = useSelector((state) => state.user);
+  const { products } = useSelector((state) => state.products);
+  const [quantity, setQuantity] = useState(item.quantity);
+  const [showLoader, setShowLoader] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handlePlus = () => {
+    setQuantity(quantity + 1);
+    const qty = quantities.filter((value) => value.index === index);
+    if (qty.length === 1) {
+      const updated = [...quantities];
+      for (let i = 0; i < updated.length; i++) {
+        if (updated[i].index === index) {
+          updated[i] = { index, value: quantity + 1 };
+        }
+      }
+      setQuantities([...updated]);
+    } else {
+      setQuantities([...quantities, { index, value: quantity + 1 }]);
+    }
+  };
+
+  const handleMinus = () => {
+    if (quantity - 1 > 0) {
+      setQuantity(quantity - 1);
+      const qty = quantities.filter((value) => value.index === index);
+      if (qty.length === 1) {
+        const updated = [...quantities];
+        for (let i = 0; i < updated.length; i++) {
+          if (updated[i].index === index) {
+            updated[i] = { index, value: quantity - 1 };
+          }
+        }
+        setQuantities([...updated]);
+      } else {
+        setQuantities([...quantities, { index, value: quantity - 1 }]);
+      }
+    }
+  };
+
+  const handleUpdate = () => {
+    let data;
+    setShowLoader(true);
+    if (token && token.trim() !== "") {
+      data = {
+        quantity,
+        id: item._id,
+        token,
+      };
+    } else {
+      data = { quantity, id: item._id };
+    }
+
+    axios
+      .post(process.env.REACT_APP_BACKEND_URL + "/cart/update/", data)
+      .then((res) => {
+        setTimeout(() => {
+          setShowLoader(false);
+          toastMessage("success", res.data.msg);
+          dispatch(fetchCart());
+        }, 1000);
+      })
+      .catch((error) => {
+        setTimeout(() => {
+          setShowLoader(false);
+          errorHandler(error);
+        }, 1000);
+      });
+  };
+
+  const handleDelete = () => {
+    let data;
+    setShowLoader(true);
+    if (token && token.trim() !== "") {
+      data = {
+        quantity,
+        id: item._id,
+        token,
+      };
+    } else {
+      data = {
+        id: item._id,
+      };
+    }
+
+    axios
+      .post(process.env.REACT_APP_BACKEND_URL + "/cart/delete/", data)
+      .then((res) => {
+        setShowLoader(false);
+        toastMessage("success", res.data.msg);
+        dispatch(fetchCart());
+      })
+      .catch((error) => {
+        setShowLoader(false);
+        errorHandler(error);
+      });
+  };
+
+  const getProductName = () => {
+    let name = "";
+    const pr = products.find((i) => i._id === item.productId);
+    if (pr) {
+      name = pr.name;
+    }
+    return name;
+  };
+
+  const getProductImage = () => {
+    let image = "";
+    const pr = products.find((i) => i._id === item.productId);
+    if (pr) {
+      image = app.FILE_URL + pr.image;
+    }
+    return image;
+  };
+
   return (
-    <tr>
-      <td>
-        <div className={classess.flexSpace}>
-          <img
-            src={`${app.PUBLIC_URL}/assets/images/banana.png`}
-            alt=""
-            className={classess.productImage}
-          />
-          <p className={classess.productTitle}>Banana</p>
-        </div>
-      </td>
-      <td>1,000 RWF</td>
-      <td>
-        <div
-          className={`${classess.flexSpaceBetween} ${classess.qtyContainer}`}
-        >
-          <div className={classess.btn}>-</div>
-          <span className={classess.qty}>1</span>
-          <div className={classess.btn}>+</div>
-        </div>
-      </td>
-      <td style={{ color: appColors.GREEN, textAlign: "center" }}>1,000 RWF</td>
-      <td className="text-center">
-        <i className="bi bi-trash" />
-      </td>
-    </tr>
+    <>
+      <tr>
+        <td>
+          <div className={classess.flexSpace}>
+            <img
+              src={getProductImage()}
+              alt=""
+              className={classess.productImage}
+            />
+            <p className={classess.productTitle}>{getProductName()}</p>
+          </div>
+        </td>
+        <td>{currencyFormatter(item.price)} RWF</td>
+        <td>
+          <div
+            className={`${classess.flexSpaceBetween} ${classess.qtyContainer}`}
+          >
+            <div
+              className={classess.btn}
+              onClick={() => {
+                handleMinus();
+              }}
+            >
+              -
+            </div>
+            <span className={classess.qty}>{quantity}</span>
+            <div
+              className={classess.btn}
+              onClick={() => {
+                handlePlus();
+              }}
+            >
+              +
+            </div>
+          </div>
+        </td>
+        <td style={{ color: appColors.GREEN, textAlign: "center" }}>
+          {item.price * item.quantity} RWF
+        </td>
+        <td className="text-center">
+          {showLoader ? (
+            <Spinner color="primary" />
+          ) : (
+            <>
+              {quantity != item.quantity && (
+                <button
+                  className="btn  btn-success"
+                  onClick={() => handleUpdate()}
+                >
+                  Update
+                </button>
+              )}
+              <button className="btn" onClick={() => setShowAlert(true)}>
+                <i className="bi bi-trash" />
+              </button>
+            </>
+          )}
+        </td>
+      </tr>
+      <Confirmation
+        showAlert={showAlert}
+        setShowAlert={setShowAlert}
+        callback={handleDelete}
+        title={"Do you want to remove " + getProductName() + " from your cart?"}
+      />
+    </>
   );
 }
 
