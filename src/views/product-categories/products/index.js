@@ -1,128 +1,37 @@
 import { makeStyles } from "@mui/styles";
 import React from "react";
+import { useSelector } from "react-redux";
 import { app, appColors } from "../../../constants";
+import { currencyFormatter } from "../../../helpers";
 
 function Products() {
   const classes = useStyles();
+  const { products } = useSelector((state) => state.products);
   return (
     <section className={classes.mainContainer}>
       <div className="container">
         <div className="">
           <div className="row">
-            <div className="col-md-4 mb-3">
-              <div style={{ position: "relative" }}>
-                <div className={classes.imageContainer}>
-                  <img
-                    src={`${app.PUBLIC_URL}/assets/images/banana.png`}
-                    alt=""
-                  />
+            {products.map((item, index) => (
+              <div className="col-md-4 mb-3" key={index}>
+                <div style={{ position: "relative" }}>
+                  <div className={classes.imageContainer}>
+                    <img src={`${app.FILE_URL + item.image}`} alt={item.name} />
+                  </div>
+                  <div className={classes.cartBtnContainer}>
+                    <button>
+                      <i className="bi bi-cart" /> <span>Add to cart</span>
+                    </button>
+                  </div>
                 </div>
-                <div className={classes.cartBtnContainer}>
-                  <button>
-                    <i className="bi bi-cart" /> <span>Add to cart</span>
-                  </button>
-                </div>
-              </div>
-              <div className={classes.productPriceContainer}>
-                <p className={classes.title}>Banana</p>
-                <p className={classes.price}>100 RWF</p>
-              </div>
-            </div>
-            <div className="col-md-4 mb-3">
-              <div style={{ position: "relative" }}>
-                <div className={classes.imageContainer}>
-                  <img
-                    src={`${app.PUBLIC_URL}/assets/images/banana.png`}
-                    alt=""
-                  />
-                </div>
-                <div className={classes.cartBtnContainer}>
-                  <button>
-                    <i className="bi bi-cart" /> <span>Add to cart</span>
-                  </button>
+                <div className={classes.productPriceContainer}>
+                  <p className={classes.title}>{item.name}</p>
+                  <p className={classes.price}>
+                    {currencyFormatter(item.price)} RWF
+                  </p>
                 </div>
               </div>
-              <div className={classes.productPriceContainer}>
-                <p className={classes.title}>Banana</p>
-                <p className={classes.price}>100 RWF</p>
-              </div>
-            </div>
-            <div className="col-md-4 mb-3">
-              <div style={{ position: "relative" }}>
-                <div className={classes.imageContainer}>
-                  <img
-                    src={`${app.PUBLIC_URL}/assets/images/banana.png`}
-                    alt=""
-                  />
-                </div>
-                <div className={classes.cartBtnContainer}>
-                  <button>
-                    <i className="bi bi-cart" /> <span>Add to cart</span>
-                  </button>
-                </div>
-              </div>
-              <div className={classes.productPriceContainer}>
-                <p className={classes.title}>Banana</p>
-                <p className={classes.price}>100 RWF</p>
-              </div>
-            </div>
-            <div className="col-md-4 mb-3">
-              <div style={{ position: "relative" }}>
-                <div className={classes.imageContainer}>
-                  <img
-                    src={`${app.PUBLIC_URL}/assets/images/banana.png`}
-                    alt=""
-                  />
-                </div>
-                <div className={classes.cartBtnContainer}>
-                  <button>
-                    <i className="bi bi-cart" /> <span>Add to cart</span>
-                  </button>
-                </div>
-              </div>
-              <div className={classes.productPriceContainer}>
-                <p className={classes.title}>Banana</p>
-                <p className={classes.price}>100 RWF</p>
-              </div>
-            </div>
-            <div className="col-md-4 mb-3">
-              <div style={{ position: "relative" }}>
-                <div className={classes.imageContainer}>
-                  <img
-                    src={`${app.PUBLIC_URL}/assets/images/banana.png`}
-                    alt=""
-                  />
-                </div>
-                <div className={classes.cartBtnContainer}>
-                  <button>
-                    <i className="bi bi-cart" /> <span>Add to cart</span>
-                  </button>
-                </div>
-              </div>
-              <div className={classes.productPriceContainer}>
-                <p className={classes.title}>Banana</p>
-                <p className={classes.price}>100 RWF</p>
-              </div>
-            </div>
-            <div className="col-md-4 mb-3">
-              <div style={{ position: "relative" }}>
-                <div className={classes.imageContainer}>
-                  <img
-                    src={`${app.PUBLIC_URL}/assets/images/banana.png`}
-                    alt=""
-                  />
-                </div>
-                <div className={classes.cartBtnContainer}>
-                  <button>
-                    <i className="bi bi-cart" /> <span>Add to cart</span>
-                  </button>
-                </div>
-              </div>
-              <div className={classes.productPriceContainer}>
-                <p className={classes.title}>Banana</p>
-                <p className={classes.price}>100 RWF</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

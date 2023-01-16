@@ -36,7 +36,7 @@ function Categories() {
                     alignItems: "center",
                     justifyContent: "center",
                     margin: "auto",
-                    padding: 10,
+                    padding: 15,
                   }}
                 >
                   <img
@@ -44,8 +44,8 @@ function Categories() {
                     alt={item.name}
                     style={{
                       borderRadius: 100,
-                      width: 90,
-                      height: 90,
+                      width: 85,
+                      height: 85,
                     }}
                   />
                 </div>

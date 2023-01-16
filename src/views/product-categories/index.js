@@ -1,11 +1,13 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import Header from "../../components/header";
 import TopBanner from "../../components/top-banner";
 import { app, appColors } from "../../constants";
 import Products from "./products";
 
 function ProductCategories() {
+  const { categories } = useSelector((state) => state.categories);
   return (
     <>
       <Header />
@@ -31,24 +33,17 @@ function ProductCategories() {
                   />
                   <label class="form-check-label">All</label>
                 </div>
-                <div class="form-check form-check-block">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="category"
-                    value="apples"
-                  />
-                  <label class="form-check-label">Vegetables</label>
-                </div>
-                <div class="form-check form-check-block">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="category"
-                    value="apples"
-                  />
-                  <label class="form-check-label">Apples</label>
-                </div>
+                {categories.map((item, index) => (
+                  <div class="form-check form-check-block" key={index}>
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="category"
+                      value={item.name}
+                    />
+                    <label class="form-check-label">{item.name}</label>
+                  </div>
+                ))}
               </div>
               <hr />
               <div>
