@@ -1,5 +1,5 @@
 import { Button, Nav, NavItem } from "reactstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { appColors } from "../constants";
 
 const navigation = [
@@ -51,6 +51,7 @@ const navigation = [
 ];
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
@@ -59,7 +60,11 @@ const Sidebar = () => {
   return (
     <div className="p-3">
       <div className="d-flex align-items-center">
-        <span className="h1 m-0 p-0">
+        <span
+          className="h1 m-0 p-0"
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("/")}
+        >
           O<span style={{ color: appColors.RED }}>F</span>&
           <span style={{ color: appColors.GREEN }}>V</span>M
         </span>

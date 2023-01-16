@@ -31,8 +31,8 @@ const Header = () => {
   return (
     <Navbar color="primary" dark expand="md">
       <div className="d-flex align-items-center">
-        <NavbarBrand href="/" className="d-lg-none">
-          <span className="h1 m-0 p-0">
+        <NavbarBrand className="d-lg-none" onClick={() => navigate("/")}>
+          <span className="h1 m-0 p-0" style={{ cursor: "pointer" }}>
             O<span style={{ color: appColors.RED }}>F</span>&
             <span style={{ color: appColors.GREEN }}>V</span>M
           </span>
