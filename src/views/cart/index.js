@@ -3,11 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Container } from "reactstrap";
-import { fetchCart } from "../../actions/cart";
+import { fetchCart, setCart } from "../../actions/cart";
 import Header from "../../components/header";
 import TopBanner from "../../components/top-banner";
 import { appColors } from "../../constants";
 import { currencyFormatter, toastMessage } from "../../helpers";
+import MiniLoader from "../../layouts/loader/MiniLoader";
 import CartItem from "./cart-item";
 import Checkout from "./checkout";
 
@@ -18,6 +19,7 @@ function Cart() {
   const classess = useStyles();
   const [showModal, setShowModal] = useState(false);
   const [quantities, setQuantities] = useState([]);
+  const [cartTotal, setCartTotal] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,55 +42,79 @@ function Cart() {
     }
     return total;
   };
+
+  useEffect(() => {
+    const total = calculateTotal();
+    setCartTotal(total);
+  }, [cart]);
+
   return (
     <>
       <Header />
       <TopBanner title="Cart" />
       <Container className={classess.mainContainer}>
-        <div className="table-responsive">
-          <table className="table table-bordered">
-            <thead className={classess.thead}>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th className="text-center">Total</th>
-              <th className="text-center">Action</th>
-            </thead>
-            <tbody className={classess.tbody}>
-              {cart.map((item, index) => (
-                <CartItem
-                  item={item}
-                  index={index}
-                  quantities={quantities}
-                  setQuantities={setQuantities}
-                />
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div
-          className={`${classess.subTotalContainer} ${classess.flexSpaceBetween}`}
-        >
-          <p>Subtotal</p>
-          <p>{currencyFormatter(calculateTotal())} RWF</p>
-        </div>
-        <div className="text-end">
-          <button
-            className={classess.btn}
-            onClick={() => {
-              if (token.trim() !== "") {
-                setShowModal(true);
-              } else {
-                toastMessage("error", "You must login before checking out");
-                navigate("/login");
-              }
-            }}
-          >
-            Checkout
-          </button>
-        </div>
+        {loading && cart.length === 0 ? (
+          <MiniLoader />
+        ) : (
+          <>
+            <div className="table-responsive">
+              <table className="table table-bordered">
+                <thead className={classess.thead}>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th className="text-center">Total</th>
+                  <th className="text-center">Action</th>
+                </thead>
+                <tbody className={classess.tbody}>
+                  {cart.map((item, index) => (
+                    <CartItem
+                      key={index}
+                      item={item}
+                      index={index}
+                      quantities={quantities}
+                      setQuantities={setQuantities}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {cartTotal > 0 && (
+              <>
+                <div
+                  className={`${classess.subTotalContainer} ${classess.flexSpaceBetween}`}
+                >
+                  <p>Subtotal</p>
+                  <p>{currencyFormatter(cartTotal)} RWF</p>
+                </div>
+                <div className="text-end">
+                  <button
+                    className={classess.btn}
+                    onClick={() => {
+                      if (token.trim() !== "") {
+                        setShowModal(true);
+                      } else {
+                        toastMessage(
+                          "error",
+                          "You must login before checking out"
+                        );
+                        navigate("/login");
+                      }
+                    }}
+                  >
+                    Checkout
+                  </button>
+                </div>
+              </>
+            )}
+          </>
+        )}
       </Container>
-      <Checkout showModal={showModal} setShowModal={setShowModal} />
+      <Checkout
+        showModal={showModal}
+        cartTotal={cartTotal}
+        setShowModal={setShowModal}
+      />
     </>
   );
 }

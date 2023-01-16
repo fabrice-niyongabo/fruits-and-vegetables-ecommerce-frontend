@@ -169,7 +169,7 @@ function CartItem({ item, setQuantities, quantities, index }) {
           </div>
         </td>
         <td style={{ color: appColors.GREEN, textAlign: "center" }}>
-          {item.price * item.quantity} RWF
+          {item.price * quantity} RWF
         </td>
         <td className="text-center">
           {showLoader ? (
