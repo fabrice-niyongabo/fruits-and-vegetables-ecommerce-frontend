@@ -13,14 +13,13 @@ function Welcome() {
       />
       <div className={classes.aboutMaincontainer}>
         <div className={`${classes.aboutContainer} shadow`}>
-          <h2 className="text-center">About</h2>
+          <h2 className="text-center">-About-</h2>
           <p style={{ color: appColors.TEXT_GRAY }}>
             <small>
-              This is a short description, This is a short description, This is
-              a short description, This is a short description, This is a short
-              description, This is a short description, description, This is a
-              short description, This is a short description, This is a short
-              description, This is a short description,
+              The general objective of this project entitled” Design and
+              implementation of an online fruits and vegetable market” is to
+              provide the way that clients can be aware of available fruits at{" "}
+              <b>CYIZERE FRUITS COMPANY LTD</b> and order them online.
             </small>
           </p>
         </div>

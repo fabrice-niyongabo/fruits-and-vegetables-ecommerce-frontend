@@ -1,12 +1,15 @@
 import { useDispatch } from "react-redux";
 import Axios from "axios";
 import { toast } from "react-toastify";
+import { fetchCategories } from "../actions/categories";
+import { fetchProducts } from "../actions/products";
 
 //custom dispatcher hook
 export const useLoadBasicData = () => {
   const dispatch = useDispatch();
   return (payload) => {
-    // dispatch(fetchFacility());
+    dispatch(fetchCategories());
+    dispatch(fetchProducts());
   };
 };
 
@@ -102,4 +105,48 @@ export const calCulateDistance = (
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   var d = R * c;
   return d;
+};
+
+export const currencyFormatter = (num) => {
+  if (
+    isNaN(num) ||
+    num === undefined ||
+    num === null ||
+    typeof num === "undefined"
+  ) {
+    // throw new Error(`currencyFormatter Failed,not a NUM`)
+    // console.log("Num:-", num)
+    return "";
+  }
+  // console.log("Num:-", num)
+  let sign = "";
+  if (num < 0) {
+    sign = "-";
+  }
+  const str = Math.abs(num).toString();
+  let lastComma = 0;
+  let lastDot = str.lastIndexOf(".");
+  if (lastDot == -1) {
+    lastComma = str.length - 4;
+  } else {
+    lastComma = lastDot - 4;
+  }
+
+  // console.log(lastComma);
+  let newStr = "";
+  for (let i = str.length - 1; i >= 0; i--) {
+    if (i == lastComma) {
+      newStr = "," + newStr;
+      lastComma -= 2;
+    }
+
+    newStr = str[i] + newStr;
+  }
+  if (sign === "-") {
+    newStr = sign + newStr;
+  }
+  if (newStr.includes("e")) {
+    return exponentialToFixed(newStr);
+  }
+  return newStr;
 };

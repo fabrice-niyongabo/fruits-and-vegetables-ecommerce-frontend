@@ -5,15 +5,15 @@ import { useNavigate } from "react-router-dom";
 import { app, appColors } from "../../../constants";
 import { currencyFormatter } from "../../../helpers";
 
-function LatestProducts() {
-  const { products, isLoading } = useSelector((state) => state.products);
+function Categories() {
+  const { categories, isLoading } = useSelector((state) => state.categories);
   const classes = useStyles();
   const navigate = useNavigate();
   return (
     <section className={classes.mainContainer}>
       <div className="container">
         <div className={classes.flexSpace}>
-          <h3 className={classes.title}>Latest Products</h3>
+          <h3 className={classes.title}>Products Categories</h3>
           <button
             className={classes.btn}
             onClick={() => navigate("/categories/all")}
@@ -23,23 +23,34 @@ function LatestProducts() {
         </div>
         <div className="mt-5">
           <div className="row">
-            {products.map((item, index) => (
+            {categories.map((item, index) => (
               <div key={index} className="col-md-2 mb-3">
-                <div style={{ position: "relative" }}>
-                  <div className={classes.imageContainer}>
-                    <img src={`${app.FILE_URL + item.image}`} alt={item.name} />
-                  </div>
-                  <div className={classes.cartBtnContainer}>
-                    <button>
-                      <i className="bi bi-cart" /> <span>Add to cart</span>
-                    </button>
-                  </div>
+                <div
+                  className="shadow"
+                  style={{
+                    background: appColors.WHITE,
+                    borderRadius: 100,
+                    width: 100,
+                    height: 100,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    margin: "auto",
+                    padding: 10,
+                  }}
+                >
+                  <img
+                    src={`${app.FILE_URL + item.image}`}
+                    alt={item.name}
+                    style={{
+                      borderRadius: 100,
+                      width: 90,
+                      height: 90,
+                    }}
+                  />
                 </div>
                 <div className={classes.productPriceContainer}>
                   <p className={classes.title}>{item.name}</p>
-                  <p className={classes.price}>
-                    {currencyFormatter(item.price)} RWF
-                  </p>
                 </div>
               </div>
             ))}
@@ -50,11 +61,12 @@ function LatestProducts() {
   );
 }
 
-export default LatestProducts;
+export default Categories;
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
-    padding: "0px",
+    padding: "5rem 0px",
+    marginTop: "5rem",
   },
   imageContainer: {
     backgroundColor: appColors.WHITE,

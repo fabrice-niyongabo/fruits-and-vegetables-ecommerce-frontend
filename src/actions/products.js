@@ -22,11 +22,15 @@ export const fetchProducts = () => (dispatch, getState) => {
   dispatch(setLoadingProducts(true));
   Axios.get(app.BACKEND_URL + "/products/")
     .then((res) => {
-      dispatch(setLoadingProducts(false));
-      dispatch(setProducts(res.data.products));
+      setTimeout(() => {
+        dispatch(setLoadingProducts(false));
+        dispatch(setProducts(res.data.products));
+      }, 1000);
     })
     .catch((error) => {
-      dispatch(setLoadingProducts(false));
-      errorHandler(error);
+      setTimeout(() => {
+        dispatch(setLoadingProducts(false));
+        errorHandler(error);
+      }, 1000);
     });
 };
