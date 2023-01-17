@@ -25,7 +25,7 @@ const navigation = [
   },
   {
     title: "Sales",
-    href: "/dashboard/alerts",
+    href: "/dashboard/all",
     icon: "bi bi-bar-chart-fill",
   },
   {
@@ -35,7 +35,7 @@ const navigation = [
   },
   {
     title: "Contact Us Form",
-    href: "/dashboard/alerts",
+    href: "/dashboard/all",
     icon: "bi bi-inboxes",
   },
   {

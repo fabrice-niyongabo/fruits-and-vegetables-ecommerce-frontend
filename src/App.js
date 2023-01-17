@@ -1,6 +1,7 @@
 import React, { lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import Print from "./views/print/index.js";
 const FullLayout = lazy(() => import("./layouts/FullLayout.js"));
 const Dashboard = lazy(() => import("./views/dashboard"));
 const AdminProfile = lazy(() => import("./views/admin-profile"));
@@ -43,6 +44,15 @@ const App = () => {
           <Route exact path="/cart" element={<Cart />} />
           <Route
             exact
+            path="/print/:id"
+            element={
+              <ProtectedRoute>
+                <Print />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
             path="/categories/:category"
             element={<ProductCategories />}
           />
@@ -69,7 +79,7 @@ const App = () => {
             children={
               <>
                 <Route path="/dashboard/" element={<Dashboard />} />
-                <Route path="/dashboard/alerts" exact element={<Alerts />} />
+                <Route path="/dashboard/all" exact element={<Alerts />} />
                 <Route
                   path="/dashboard/profile"
                   exact
