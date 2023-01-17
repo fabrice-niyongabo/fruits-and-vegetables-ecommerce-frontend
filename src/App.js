@@ -102,7 +102,7 @@ const App = () => {
           {/* <Route path="*" element={<NoMatch />} /> */}
         </Routes>
       </BrowserRouter>
-      <ToastContainer theme="dark" />
+      <ToastContainer position="bottom-right" theme="dark" />
     </>
   );
 };
