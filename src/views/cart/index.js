@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Container } from "reactstrap";
-import { fetchCart, setCart } from "../../actions/cart";
 import Header from "../../components/header";
 import TopBanner from "../../components/top-banner";
 import { appColors } from "../../constants";
@@ -11,6 +10,7 @@ import { currencyFormatter, toastMessage } from "../../helpers";
 import MiniLoader from "../../layouts/loader/MiniLoader";
 import CartItem from "./cart-item";
 import Checkout from "./checkout";
+import { fetchCart } from "../../redux/actions/cart";
 
 function Cart() {
   const { loading, cart } = useSelector((state) => state.cart);

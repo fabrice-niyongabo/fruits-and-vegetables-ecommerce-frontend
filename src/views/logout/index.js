@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { resetUser } from "../../actions/user";
+import { resetUser } from "../../redux/actions/user";
 
 const Logout = () => {
   const navigate = useNavigate();

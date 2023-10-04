@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { errorHandler, toastMessage } from "../../helpers";
-import { setUserFullName, setUserPhone } from "../../actions/user";
+import { setUserFullName, setUserPhone } from "../../redux/actions/user";
 function ProfileDetails({ showModal, setShowModal, setShowLoader }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);

@@ -1,9 +1,9 @@
 import { useDispatch } from "react-redux";
 import Axios from "axios";
 import { toast } from "react-toastify";
-import { fetchCategories } from "../actions/categories";
-import { fetchProducts } from "../actions/products";
-import { fetchCart } from "../actions/cart";
+import { fetchCategories } from "../redux/actions/categories";
+import { fetchProducts } from "../redux/actions/products";
+import { fetchCart } from "../redux/actions/cart";
 
 //custom dispatcher hook
 export const useLoadBasicData = () => {
@@ -28,7 +28,6 @@ export const randomNumber = () => {
 };
 
 export const uploadImage = (file) => {
-  console.log(file);
   return new Promise((resolve, reject) => {
     let formData = new FormData();
     formData.append("file", file, file.name);

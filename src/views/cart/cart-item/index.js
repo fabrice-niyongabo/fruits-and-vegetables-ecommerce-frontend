@@ -3,7 +3,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "reactstrap";
-import { fetchCart } from "../../../actions/cart";
 import { app, appColors } from "../../../constants";
 import Confirmation from "../../../controllers/confirmation";
 import {
@@ -11,6 +10,7 @@ import {
   errorHandler,
   toastMessage,
 } from "../../../helpers";
+import { fetchCart } from "../../../redux/actions/cart";
 
 function CartItem({ item, setQuantities, quantities, index }) {
   const dispatch = useDispatch();

@@ -3,9 +3,9 @@ import React, { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, CardBody, CardTitle, Spinner } from "reactstrap";
-import { setUserFullName, setUserPhone } from "../../actions/user";
 import { app } from "../../constants";
 import { errorHandler, toastMessage } from "../../helpers";
+import { setUserFullName, setUserPhone } from "../../redux/actions/user";
 
 const AdminProfile = () => {
   const dispatch = useDispatch();

@@ -3,13 +3,13 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "reactstrap";
-import { setCart } from "../../../actions/cart";
 import { app, appColors } from "../../../constants";
 import {
   currencyFormatter,
   errorHandler,
   toastMessage,
 } from "../../../helpers";
+import { setCart } from "../../../redux/actions/cart";
 
 function ProductItem({ item }) {
   const { token } = useSelector((state) => state.user);

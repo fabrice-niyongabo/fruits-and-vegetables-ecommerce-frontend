@@ -11,7 +11,7 @@ import {
   setUserPhone,
   setUserRole,
   setUserToken,
-} from "../../actions/user";
+} from "../../redux/actions/user";
 import Header from "../../components/header";
 import TopBanner from "../../components/top-banner";
 import { app, appColors } from "../../constants";
