@@ -40,7 +40,7 @@ function Categories() {
                   }}
                 >
                   <img
-                    src={`${app.FILE_URL + item.image}`}
+                    src={item.image.secure_url}
                     alt={item.name}
                     style={{
                       borderRadius: 100,

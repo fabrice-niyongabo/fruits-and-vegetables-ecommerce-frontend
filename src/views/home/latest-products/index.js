@@ -23,7 +23,7 @@ function LatestProducts() {
         </div>
         <div className="mt-5">
           <div className="row">
-            {products.map((item, index) => (
+            {products.slice(0, 50).map((item, index) => (
               <ProductItem item={item} index={index} key={index} />
             ))}
           </div>
