@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import Loader from "./layouts/loader/Loader";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { Store, persistor } from "./store";
+import { Store, persistor } from "./src/redux";
 ReactDOM.render(
   <Provider store={Store}>
     <PersistGate persistor={persistor}>

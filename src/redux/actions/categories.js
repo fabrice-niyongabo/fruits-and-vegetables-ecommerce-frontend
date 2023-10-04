@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { app } from "../constants";
+import { app } from "../../constants";
 import { errorHandler, handleAuthError } from "../helpers";
 export const SET_LOADING_CATEGORIES = "SET_LOADING_CATEGORIES";
 export const SET_CATEGORIES = "SET_CATEGORIES";

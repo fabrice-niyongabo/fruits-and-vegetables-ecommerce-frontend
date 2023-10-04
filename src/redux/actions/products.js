@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { app } from "../constants";
+import { app } from "../../constants";
 import { errorHandler, handleAuthError } from "../helpers";
 export const SET_LOADING_PRODUCTS = "SET_LOADING_PRODUCTS";
 export const SET_PRODUCTS = "SET_PRODUCTS";

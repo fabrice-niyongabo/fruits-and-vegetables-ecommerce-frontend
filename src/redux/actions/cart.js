@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { handleAuthError } from "../helpers";
+import { handleAuthError } from "../../helpers";
 export const RESET_CART = "RESET_CART";
 export const SET_LOADING_CART = "SET_LOADING_CART";
 export const SET_CART = "SET_CART";
