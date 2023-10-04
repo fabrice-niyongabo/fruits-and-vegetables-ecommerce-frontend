@@ -4,7 +4,12 @@ import { useSelector } from "react-redux";
 import { Card, CardBody, CardTitle, Col, Row, Spinner } from "reactstrap";
 import { app } from "../../constants";
 import Confirmation from "../../controllers/confirmation";
-import { errorHandler, toastMessage, uploadImage } from "../../helpers";
+import {
+  errorHandler,
+  setHeaders,
+  toastMessage,
+  uploadImage,
+} from "../../helpers";
 import MiniLoader from "../../layouts/loader/MiniLoader";
 import Edit from "./edit";
 
@@ -23,39 +28,22 @@ const Alerts = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    uploadImage(image)
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("name", name);
+
+    axios
+      .post(app.BACKEND_URL + "/categories/", formData, setHeaders(token))
       .then((res) => {
-        const { fileName } = res.data;
-        axios
-          .post(app.BACKEND_URL + "/categories/", {
-            name,
-            image: fileName,
-            token,
-          })
-          .then((response) => {
-            setTimeout(() => {
-              setName("");
-              setImage("");
-              setIsSubmitting(false);
-              toastMessage("success", "Category has been added successful");
-              fetchCategories();
-            }, 1000);
-          })
-          .catch((error) => {
-            setTimeout(() => {
-              setIsSubmitting(false);
-              errorHandler(error);
-            }, 1000);
-          });
+        setName("");
+        setImage("");
+        setIsSubmitting(false);
+        toastMessage("success", res.msg);
+        fetchCategories();
       })
       .catch((error) => {
         setIsSubmitting(false);
-        if (error.msg) {
-          toastMessage("error", error.msg);
-        } else {
-          toastMessage("error", error.message);
-        }
+        errorHandler(error);
       });
   };
 

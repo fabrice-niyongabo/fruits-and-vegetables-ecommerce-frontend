@@ -68,6 +68,14 @@ export const errorHandler = (error) => {
   handleAuthError(error);
 };
 
+export const setHeaders = (token) => {
+  return {
+    headers: {
+      token: token,
+    },
+  };
+};
+
 export const fetchCoordinates = () => {
   return new Promise((resolve, reject) => {
     try {
