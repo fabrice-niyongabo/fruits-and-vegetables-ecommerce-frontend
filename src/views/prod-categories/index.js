@@ -1,15 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Card, CardBody, CardTitle, Col, Row, Spinner } from "reactstrap";
 import { app } from "../../constants";
 import Confirmation from "../../controllers/confirmation";
-import {
-  errorHandler,
-  setHeaders,
-  toastMessage,
-  uploadImage,
-} from "../../helpers";
+import { errorHandler, setHeaders, toastMessage } from "../../helpers";
 import MiniLoader from "../../layouts/loader/MiniLoader";
 import Edit from "./edit";
 
@@ -26,17 +21,20 @@ const Alerts = () => {
   const [selectedItem, setSelectedItem] = useState({});
   const [isDeleting, setIsDeleting] = useState(false);
 
+  const imageRef = useRef(null);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("image", image);
     formData.append("name", name);
-
+    setIsSubmitting(true);
     axios
       .post(app.BACKEND_URL + "/categories/", formData, setHeaders(token))
       .then((res) => {
         setName("");
         setImage("");
+        imageRef.current.value = "";
         setIsSubmitting(false);
         toastMessage("success", res.msg);
         fetchCategories();
@@ -123,7 +121,7 @@ const Alerts = () => {
                           <td>{index + 1}</td>
                           <td>
                             <img
-                              src={app.FILE_URL + item.image}
+                              src={item.image.secure_url}
                               style={{
                                 width: 50,
                                 maxHeight: 50,
@@ -190,6 +188,7 @@ const Alerts = () => {
                     type="file"
                     className="form-control"
                     required
+                    ref={imageRef}
                     disabled={isSubmitting}
                     onChange={(t) => setImage(t.target.files[0])}
                   />
