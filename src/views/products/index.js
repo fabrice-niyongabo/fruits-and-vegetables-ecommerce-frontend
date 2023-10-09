@@ -110,7 +110,7 @@ const Products = () => {
                           <td>{index + 1}</td>
                           <td>
                             <img
-                              src={app.FILE_URL + item.image}
+                              src={item.image?.secure_url}
                               style={{
                                 width: 50,
                                 maxHeight: 50,

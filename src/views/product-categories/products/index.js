@@ -16,7 +16,7 @@ function Products() {
               <div className="col-md-4 mb-3" key={index}>
                 <div style={{ position: "relative" }}>
                   <div className={classes.imageContainer}>
-                    <img src={`${app.FILE_URL + item.image}`} alt={item.name} />
+                    <img src={`${item?.image.secure_url}`} alt={item.name} />
                   </div>
                   <div className={classes.cartBtnContainer}>
                     <button>
