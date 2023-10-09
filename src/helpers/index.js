@@ -70,7 +70,7 @@ export const errorHandler = (error) => {
 export const setHeaders = (token) => {
   return {
     headers: {
-      token: token,
+      "access-token": token,
     },
   };
 };

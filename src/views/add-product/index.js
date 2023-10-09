@@ -3,7 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Card, CardBody, CardTitle, Col, Row, Spinner } from "reactstrap";
 import { app } from "../../constants";
-import { errorHandler, toastMessage, uploadImage } from "../../helpers";
+import {
+  errorHandler,
+  setHeaders,
+  toastMessage,
+  uploadImage,
+} from "../../helpers";
 import MiniLoader from "../../layouts/loader/MiniLoader";
 
 const AddProduct = () => {
@@ -20,43 +25,28 @@ const AddProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    uploadImage(image)
+
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("name", name);
+    formData.append("price", price);
+    formData.append("description", description);
+    formData.append("categoryId", categoryId);
+
+    axios
+      .post(app.BACKEND_URL + "/products/", formData, setHeaders(token))
       .then((res) => {
-        const { fileName } = res.data;
-        axios
-          .post(app.BACKEND_URL + "/products/", {
-            name,
-            price,
-            description,
-            categoryId,
-            image: fileName,
-            token,
-          })
-          .then((res) => {
-            setTimeout(() => {
-              setName("");
-              setDescription("");
-              setPrice("");
-              setCategoryId("");
-              setImage("");
-              setIsSubmitting(false);
-              toastMessage("success", res.data.msg);
-            }, 1000);
-          })
-          .catch((error) => {
-            setTimeout(() => {
-              setIsSubmitting(false);
-              errorHandler(error);
-            }, 1000);
-          });
+        setName("");
+        setDescription("");
+        setPrice("");
+        setCategoryId("");
+        setImage("");
+        setIsSubmitting(false);
+        toastMessage("success", res.data.msg);
       })
       .catch((error) => {
         setIsSubmitting(false);
-        if (error.msg) {
-          toastMessage("error", error.msg);
-        } else {
-          toastMessage("error", error.message);
-        }
+        errorHandler(error);
       });
   };
 
@@ -65,16 +55,12 @@ const AddProduct = () => {
     axios
       .get(app.BACKEND_URL + "/categories/")
       .then((res) => {
-        setTimeout(() => {
-          setCategories(res.data.categories);
-          setIsLoading(false);
-        }, 1000);
+        setCategories(res.data.categories);
+        setIsLoading(false);
       })
       .catch((error) => {
-        setTimeout(() => {
-          errorHandler(error);
-          setIsLoading(false);
-        }, 1000);
+        errorHandler(error);
+        setIsLoading(false);
       });
   };
 
@@ -155,7 +141,7 @@ const AddProduct = () => {
                       />
                     </div>
                     <div className="text-end">
-                      <button className="btn btn-primary">
+                      <button className="btn btn-primary" type="submit">
                         {isSubmitting && <Spinner size="sm" color="white" />}{" "}
                         Save Product
                       </button>
